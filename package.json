@@ -21,8 +21,6 @@
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
     "file-saver": "^2.0.5",
-    "@types/file-saver": "^2.0.5",
-    "ng2-pdf-viewer": "^9.1.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
