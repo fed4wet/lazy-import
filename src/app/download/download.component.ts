@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
-import {saveAs} from "file-saver";
 import {DownloadService} from "./download.service";
+import {saveAsPromise} from "./import.lib";
+
 
 @Component({
   selector: 'app-download',
@@ -15,9 +16,13 @@ export class DownloadComponent implements OnInit {
   }
 
   download(): void {
-    this.service.download().subscribe(blob => {
-      saveAs(blob, `love.pdf`);
-    });
+    saveAsPromise().then(saveAsLib => {
+      const doc = saveAsLib.default
+      this.service.download().subscribe(blob => {
+        doc.saveAs(blob, `love.pdf`);
+      });
+    })
+
   }
 
   ngOnInit(): void {
