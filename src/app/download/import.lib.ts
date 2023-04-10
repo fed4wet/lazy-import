@@ -5,3 +5,12 @@ export const saveAsPromise = (): Promise<any> => {
     return lib
   })
 }
+
+
+export const momentPromise = (): Promise<any> => {
+
+  return import("moment").then(lib => {
+    console.log("moment installed");
+    return lib
+  })
+}

@@ -1,16 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {DOCUMENT} from "@angular/common";
+import {Component} from '@angular/core';
 import {saveAs} from "file-saver";
 import {DownloadService} from "./download.service";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.css']
 })
-export class DownloadComponent implements OnInit {
-  constructor(public service: DownloadService,
-              @Inject(DOCUMENT) public document: Document,
+export class DownloadComponent {
+  maxDate: Date = new Date()
+  show: boolean = false;
+
+  constructor(public service: DownloadService
   ) {
   }
 
@@ -20,7 +22,9 @@ export class DownloadComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  showDate(): void {
+    this.show = !this.show;
+    this.maxDate = new Date(moment().year() + 7, 0, 1);
   }
 
 }
