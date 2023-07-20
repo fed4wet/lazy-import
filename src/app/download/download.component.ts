@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {DownloadService} from "./download.service";
 import {momentPromise, saveAsPromise} from "./import.lib";
 
@@ -16,9 +16,10 @@ export class DownloadComponent {
   }
 
   download(): void {
+    const service = inject(DownloadService)
     saveAsPromise().then(saveAsLib => {
       const doc = saveAsLib.default
-      this.service.download().subscribe(blob => {
+      service.download().subscribe(blob => {
         doc.saveAs(blob, `love.pdf`);
       });
     })
