@@ -11,9 +11,6 @@ export class DownloadComponent {
   maxDate: Date = new Date()
   show: boolean = false;
 
-  constructor(public service: DownloadService
-  ) {
-  }
 
   download(): void {
     const service = inject(DownloadService)
