@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, Injector, runInInjectionContext} from '@angular/core';
 import {DownloadService} from "./download.service";
 import {momentPromise, saveAsPromise} from "./import.lib";
 
@@ -10,19 +10,18 @@ import {momentPromise, saveAsPromise} from "./import.lib";
 export class DownloadComponent {
   maxDate: Date = new Date()
   show: boolean = false;
-
-  constructor(public service: DownloadService
-  ) {
-  }
+  injector = inject(Injector)
 
   download(): void {
-    saveAsPromise().then(saveAsLib => {
-      const doc = saveAsLib.default
-      this.service.download().subscribe(blob => {
-        doc.saveAs(blob, `love.pdf`);
-      });
+    runInInjectionContext(this.injector, () => {
+      const service = inject(DownloadService)
+      saveAsPromise().then(saveAsLib => {
+        const doc = saveAsLib.default
+        service.download().subscribe(blob => {
+          doc.saveAs(blob, `love.pdf`);
+        });
+      })
     })
-
   }
 
   showDate(): void {
